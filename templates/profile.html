@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Update page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Customer profile</h1>
+        <p>Account: <strong>{{ user.username}}</strong></p>
+        <p>Email: {{ user.email }}</p>
+        <p>Last login: {{ user.last_login }}</p>
+        <p>Sign up: {{ user.date_joined }}</p>
+
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Update</button>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="text-center alert alert-{{ message.tags }}">
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <p class="mt-4"><a href="{% url 'logout' %}" class="btn btn-danger">Logout</a></p>
+    </div>
+{% endblock %}

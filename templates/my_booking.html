@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    User Page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="">
+            <h1>My Bookings</h1>
+        </div>
+        <table class="table" id="table">
+            <thead>
+            <tr bgcolor="#999999">
+                <th align="center" width="250">Room</th>
+                <th align="center" width="150">Check In</th>
+                <th align="center" width="150">Check Out</th>
+                <th align="center" width="120">Price</th>
+                <th align="center" width="120">Nights</th>
+                <th align="center">Booking Date</th>
+                <th align="center" width="90">Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for my_booking in my_bookings %}
+                <tr>
+                    <td>{{ my_booking.room }}</td>
+                    <td>{{ my_booking.check_in }}</td>
+                    <td>{{ my_booking.check_out }}</td>
+                    <td>{{ my_booking.price }}$</td>
+                    <td>{{ my_booking.nights }}</td>
+                    <td>{{ my_booking.booking_date }}</td>
+                    <td>{{ my_booking.amount }}$</td>
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="6"><h4 align="right">Total Bookings:</h4></td>
+                <td colspan="4"><p>{{ num_bookings }}</p></td>
+            </tr>
+            </tfoot>
+        </table>
+        <a href="{% url 'home' %}" class="btn btn-primary float-right">Back Home</a>
+
+    </div>
+{% endblock %}

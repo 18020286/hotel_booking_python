@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    User Page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h3>Welcome User: {{ user.username }}</h3>
+        <section class="hoc clear mt-4">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading p-2">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                Customer Profile
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body p-2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat. <a class="btn-primary" href="{% url 'profile' %}">CLICK
+                            HERE.</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading p-2">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                My Bookings
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body p-2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                            <a class="btn-primary" href="{% url 'my_booking' %}">CLICK HERE.</a></div>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+        </section>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Hotel Booking{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="profile" href="http://gmpg.org/xfn/11" />
+    <link rel="shortcut icon" type="image/x-icon" href="" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="/static/layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+    <link href="/static/fonts/ionicons.ttf" rel="stylesheet">
+    <link href="/static/fonts/ionicons.woff" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Playfair+Display:400|Lato:300,400,700|Cormorant+SC:400,500,600,700" rel="stylesheet">
+    <link href="/static/Styles/et-icons.css" rel="stylesheet" />
+    <link href="/static/Styles/et-line.css" rel="stylesheet" />
+    <link href="/static/Styles/style.min.css" rel="stylesheet" />
+    <link href="/static/Styles/bootstrap.min.css" rel="stylesheet" />
+    <link href="/static/Styles/ionicons.min.css" rel="stylesheet" />
+    <link href="/static/Styles/font-awesome.min.css" rel="stylesheet" />
+    <link href="/static/Styles/slick.min.css" rel="stylesheet" />
+    <link href="/static/Styles/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/static/Styles/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="/static/Styles/style.css" rel="stylesheet" />
+    <link href="/static/Styles/customer.css" rel="stylesheet" />
+    <link href="/static/Styles/js_composer.min.css" rel="stylesheet" />
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/ion.sound.min.js"></script>
+    <script src="/static/js/jquery.doubletap.js"></script>
+    <meta name="generator" content="Asp.net" />
+    <style type="text/css">
+        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+            font-family: Georgia, "Times New Roman", Times, serif;;
+        }
+    </style>
+</head>
+
+<body id="top">
+    <div class="bgded overlay" style="background-image:url('/static/images/slider-1.jpg');">
+        <div class="wrapper row1">
+            <header id="header" class="hoc clear">
+                <div id="logo" class="fl_left">
+                    <h1><a href="/">Geodarn</a></h1>
+                </div>
+                <nav id="mainav" class="fl_right">
+                    <ul class="clear">
+                        <li class="{% if nav == 'home' %}active{% endif %}"><a href="/">Home</a></li>
+                        <li class="{% if nav == 'room' %}active{% endif %}"><a href="{% url 'room' %}">Room</a></li>
+                        <li class="{% if nav == 'blog' %}active{% endif %}"><a href="{% url 'blog' %}">Blog</a></li>
+                        <li class="{% if nav == 'about' %}active{% endif %}"><a href="{% url 'about' %}">About us</a></li>
+                        {% if not user.is_authenticated %}
+                        <li class="{% if nav == 'login' %}active{% endif %}"><a href="{% url 'login' %}">Login</a></li>
+                        {% else %}
+                        <li class="{% if nav == 'profile' %}active{% endif %}"><a href="{% url 'guest' %}">User</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        <div id="pageintro" class="hoc clear">
+            <div class="flexslider basicslider">
+                <ul class="slides">
+                    <li>
+                        <article>
+                            <p>Ullamcorper</p>
+                            <h3 class="heading">Maecenas nulla tellus</h3>
+                            <p>Vitae lobortis id ut mi in molestie in</p>
+                            <footer><a class="btn" href="{% url 'booking' %}">Venenatis curabitur</a></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <p>Scelerisque</p>
+                            <h3 class="heading">Dolor rhoncus nullam</h3>
+                            <p>Augue non id quam sit amet urna lobortis</p>
+                            <footer><a class="btn inverse" href="{% url 'booking' %}">Interdum lectus</a></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <p>Vestibulum</p>
+                            <h3 class="heading">Justo erat venenatis</h3>
+                            <p>Tempor sit amet ac nibh nullam mattis</p>
+                            <footer><a class="btn" href="{% url 'booking' %}">Bibendum magna</a></footer>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <div class="wrapper row4 bgded overlay" style="background-image:url('/static/images/hotel_img/room1.jpg');">
+        <footer id="footer" class="hoc clear">
+            <div class="one_third first">
+                <h3 class="heading">Geodarn</h3>
+                <ul class="faico clear">
+                    <li><a class="faicon-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="faicon-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="faicon-dribble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a class="faicon-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a class="faicon-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a class="faicon-vk" href="#"><i class="fa fa-vk"></i></a></li>
+                </ul>
+            </div>
+            <div class="one_third">
+                <ul class="nospace meta">
+                    <li class="btmspace-15"><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+                    <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+                </ul>
+            </div>
+            <div class="one_third">
+                <form method="post" action="#">
+                    <fieldset>
+                        <legend>Newsletter:</legend>
+                        <div class="clear">
+                            <input type="text" value="" placeholder="Type Email Here&hellip;">
+                            <button class="fa fa-share" type="submit" title="Submit"><em>Submit</em></button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </footer>
+    </div>
+    <div class="wrapper row5">
+        <div id="copyright" class="hoc clear">
+            <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
+            <p class="fl_right">Luxury Hotel</p>
+        </div>
+    </div>
+    <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+    <script src="/static/layout/scripts/jquery.min.js"></script>
+    <script src="/static/layout/scripts/jquery.backtotop.js"></script>
+    <script src="/static/layout/scripts/jquery.mobilemenu.js"></script>
+    <script src="/static/layout/scripts/jquery.flexslider-min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/slick.min.js"></script>
+    <script src="/static/js/owl.carousel.min.js"></script>
+    <script src="/static/js/jquery.fancybox.min.js"></script>
+    <script src="/static/js/map.js"></script>
+    <script src="/static/js/site.js"></script>
+    <script src="/static/js/wp-embed.min.js"></script>
+
+</body>
+</html>

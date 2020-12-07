@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Room page
+{% endblock %}
+
+{% block content %}
+<div class="home container">
+        <h1 class="module-title center">
+            Accommodation
+        </h1>
+        <div class="module-content">
+            <div class='single-room-detail'>
+                <div style="text-align: justify;">
+                    <span style="font-size:20px;"><span style="font-family:times new roman,times,serif;">The Oriental Jade Hotel offers 120 premium guest rooms and suites with stunning views of Hoan Kiem Lake, Hanoi Cathedral and Hanoi Old Quarter. Designed to be a peaceful haven to unwind after spending a long day discovering Hanoi, the hotel rooms and suites are ideal resting places for guests to wake up with a welcoming view of the bustling city from above.<br />
+                            &nbsp;<br />
+                            Bright and spacious, all our rooms feature a mix of classic d&eacute;cor and modern furnishings to maximize guests&rsquo; comfort. All rooms are equipped with complimentary WIFI, a flat-screen satellite TV, an alarm clock, 220V electric adapters, an individual safe, a minibar, an air-conditioner with individually controlled thermostats and a hair dryer. Room service is available daily until 10 PM.</span></span><br />
+                    &nbsp;</div>
+            </div>
+        </div>
+
+        {% for item in rooms_list %}
+        <div class='row mx-0 location-means'>
+            <div class='col-12 col-md-6 order-md-1 px-0 image'><a class='video-image' style="background-image:url('{{ item.picture.url }}');"></a><span class='single-room-price'>Price from US ${{ item.price }}++</span></div>
+            <div class='col-12 col-md-6 order-md-1 px-0'>
+                <div class='pl-4 pt-4 pr-2'>
+                    <dl>
+                        <dt>
+                            Type of room:</dt>
+                        <dd>
+                            {{ item.room_type }}</dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            Price:</dt>
+                        <dd>
+                            {{ item.price }}$</dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            Description:</dt>
+                        <dd>
+                            {{ item.description }}</dd>
+                    </dl>
+                    <div class="single-room-bpo clearfix pt-3">
+                        <a class="btn btn-primary single-room-book"  href="{% url 'booking' %}">Book now</a>
+                        <div class='single-room-price'>Price From: US ${{ item.price }}++</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+        <br>
+        <div class="wrapper row3">
+            <section class="hoc clear">
+                <div class="center center mt-4 mb-4">
+                    <h3 class="nospace">AVAILABLE FEATURED SERVICES</h3>
+                    <p class="nospace">Erat volutpat integer vestibulum purus et sagittis rhoncus.</p>
+                </div>
+                <div class="group">
+                    <div class="one_third first">
+                        <h6 class="nospace font-x1">Elit vel porttitor</h6>
+                        <p>Ex suspendisse vestibulum turpis luctus pretium posuere vestibulum feugiat non metus quis vitae&hellip;</p>
+                        <footer><a class="btn" href="#">Read More</a></footer>
+                    </div>
+                    <article class="one_third"><a href="#"><img class="" src="/static/images/car_parking.jpg" alt=""></a>
+                        <h6 class="font-x1 mt-2">HOTEL ROOM SERVICE BREAKFAST</h6>
+                        <p>Dignissim praesent consectetur nec tellus ut rutrum nam laoreet finibus mattis integer ullamcorper arcu&hellip;</p>
+                    </article>
+                    <article class="one_third"><a href="#"><img class="" src='/static/images/breakfast.jpg' alt=""></a>
+                        <h6 class="font-x1 mt-2">FREE PARKING</h6>
+                        <p>Pellentesque vehicula dictum ligula tellus convallis nisl vel scelerisque quam ligula a mauris quisque&hellip;</p>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

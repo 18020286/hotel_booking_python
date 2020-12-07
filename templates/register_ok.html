@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    OK. 200
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2>Successfully</h2>
+                <h2>Hello {{ username }}</h2>
+                {% lorem 1 p %}
+                <p><a href="/" class="btn btn-primary">Back to home page</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

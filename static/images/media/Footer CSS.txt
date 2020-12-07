@@ -1,0 +1,12 @@
+***************** Footer 1 *******************
+
+[gdlr_icon type="fa-phone" size="16px" color="#fff"] +1800-222-3333
+
+[gdlr_space height="-15px"]
+
+[gdlr_icon type="fa-envelope-o" size="16px" color="#fff"] sales@hotelmastert.com
+
+[gdlr_space height="25px"]
+
+<a href="http://themeforest.net/user/goodlayers/" target="_blank">[gdlr_icon type="fa-facebook-square" size="24px" color="#fff"]</a> <a href="http://themeforest.net/user/goodlayers/" target="_blank">[gdlr_icon type="fa-twitter-square" size="24px" color="#fff"]</a> <a href="http://themeforest.net/user/goodlayers/" target="_blank">[gdlr_icon type="fa-linkedin-square" size="24px" color="#fff"]</a> <a href="http://themeforest.net/user/goodlayers/" target="_blank">[gdlr_icon type="fa-google-plus-square" size="24px" color="#fff"]</a> <a href="http://themeforest.net/user/goodlayers/" target="_blank">[gdlr_icon type="fa-pinterest-square" size="24px" color="#fff"]</a> <a href="http://themeforest.net/user/goodlayers/" target="_blank">[gdlr_icon type="fa-flickr" size="24px" color="#fff"]</a>
+ 

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Payment Page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="">
+            <h1>Your Booking Bill</h1>
+        </div>
+        <table class="table" id="table">
+            <thead>
+            <tr bgcolor="#999999">
+                <th align="center" width="250">Room</th>
+                <th align="center" width="150">Check In</th>
+                <th align="center" width="150">Check Out</th>
+                <th align="center" width="120">Price</th>
+                <th align="center" width="120">Nights</th>
+                <th align="center">Amount</th>
+                <th align="center" width="90">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ room_name }}</td>
+                <td>{{ check_in }}</td>
+                <td>{{ check_out }}</td>
+                <td>{{ price }}</td>
+                <td>{{ nights }}</td>
+                <td>{{ total }}</td>
+                <td><a href="{% url 'booking' %}">Remove</a></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="6"><h4 align="right">Total:</h4></td>
+                <td colspan="4"><h4><b>&euro;{{ total }}</b></h4></td>
+            </tr>
+            </tfoot>
+        </table>
+        <form action="" method="POST" align="right">
+            {% csrf_token %}
+            <input type="hidden" value="" name="">
+            <input type="submit" value="Submit Booking" class="btn btn-primary">
+        </form>
+
+    </div>
+
+
+
+{% endblock %}

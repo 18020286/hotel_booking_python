@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}booking{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container-fluid px-5 ">
+            <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row justify-content-center py-5 bg-light">
+
+                <div class="col-lg-2">
+                    <label for="">Check in</label>
+                    <input class="form-control mr-sm-2" type="date" placeholder="Check in" name="cin"  aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Check Out</label>
+                    <input class="form-control mr-sm-2" type="date" placeholder="Check out" name="cout"  aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Person</label>
+{#                    <input class="form-control mr-sm-2" type="" placeholder="Person" name="capacity" aria-label="Search" required="True">#}
+                    <select class="form-control mr-sm-2" name="capacity" required="True">
+                        <option value="single">Single</option>
+                        <option value="double">Double</option>
+                        <option value="family">Family</option>
+                    </select>
+                </div>
+                <div class="col-lg-2">
+
+                    <input type="submit" value="Check Availabilty" class="form-control mr-sm-2 btn btn-primary my-4" style="position: relative;top: 7px;">
+                </div>
+                {% if rooms %}
+                <p class="text-center text-success">Rooms Available</p>
+                {% endif %}
+
+            </div>
+            </form>
+        </div>
+        <div>
+            {% if messages %}
+            {% for message in messages %}
+                <div class="text-center alert alert-{{ message.tags }}">
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+    <section>
+        <div class="home container">
+        {% for item in room_list %}
+        <div class='row mx-0 location-means'>
+            <div class='col-12 col-md-6 order-md-1 px-0 image'><a class='video-image' style="background-image:url('{{ item.picture.url }}');"></a><span class='single-room-price'>Price from US ${{ item.price }}++</span></div>
+            <div class='col-12 col-md-6 order-md-1 px-0'>
+                <div class='pl-4 pt-4 pr-2'>
+                    <dl>
+                        <dt>
+                            Type of room:</dt>
+                        <dd>
+                            {{ item.room_type }}</dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            Price:</dt>
+                        <dd>
+                            {{ item.price }}$</dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            Description:</dt>
+                        <dd>
+                            {{ item.description }}</dd>
+                    </dl>
+
+                    <div class="single-room-bpo clearfix pt-3">
+                        <a class="btn btn-primary single-room-book" href="{% if check == 'already' %}{% url 'payment' %}?room_id={{ item.id }}
+                    {% else %}#{% endif %}" >Book now</a>
+                        <div class='single-room-price'>Price From: US ${{ item.price }}++</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div>
+            {% for item in room_available %}
+                <p>room is: {{ item.type }}</p>
+            {% endfor %}
+
+        </div>
+        <br>
+        <div class="wrapper row3">
+            <section class="hoc clear">
+                <div class="center center mt-4 mb-4">
+                    <h3 class="nospace">AVAILABLE FEATURED SERVICES</h3>
+                    <p class="nospace">Erat volutpat integer vestibulum purus et sagittis rhoncus.</p>
+                </div>
+                <div class="group">
+                    <div class="one_third first">
+                        <h6 class="nospace font-x1">Elit vel porttitor</h6>
+                        <p>Ex suspendisse vestibulum turpis luctus pretium posuere vestibulum feugiat non metus quis vitae&hellip;</p>
+                        <footer><a class="btn" href="#">Read More</a></footer>
+                    </div>
+                    <article class="one_third"><a href="#"><img class="" src="/static/images/car_parking.jpg" alt=""></a>
+                        <h6 class="font-x1 mt-2">HOTEL ROOM SERVICE BREAKFAST</h6>
+                        <p>Dignissim praesent consectetur nec tellus ut rutrum nam laoreet finibus mattis integer ullamcorper arcu&hellip;</p>
+                    </article>
+                    <article class="one_third"><a href="#"><img class="" src='/static/images/breakfast.jpg' alt=""></a>
+                        <h6 class="font-x1 mt-2">FREE PARKING</h6>
+                        <p>Pellentesque vehicula dictum ligula tellus convallis nisl vel scelerisque quam ligula a mauris quisque&hellip;</p>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </div>
+    </section>
+{% endblock %}

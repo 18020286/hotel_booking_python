@@ -1,0 +1,14 @@
+Sidebar 2
+
+
+[gdlr_icon type="fa-map-marker" size="16px" color="#444444"]184 Main Collins Street West Victoria 8007
+
+[gdlr_icon type="fa-phone" size="16px" color="#444444"] 1800-222-222
+
+[gdlr_icon type="fa-envelope" size="16px" color="#444444"] contact@versatilewptheme.com
+
+[gdlr_icon type="fa-clock-o" size="16px" color="#444444"] Everyday 9:00-17:00
+
+Sidebar 3
+
+<a href="http://facebook.com/goodlayers">[gdlr_icon type="icon-facebook" size="28px" color="#444444"]</a> <a href="http://twitter.com/goodlayers">[gdlr_icon type="icon-twitter" size="28px" color="#444444"]</a> <a href="#">[gdlr_icon type="icon-dribbble" size="28px" color="#444444"]</a> <a href="#">[gdlr_icon type="icon-pinterest" size="28px" color="#444444"]</a> <a href="#">[gdlr_icon type="icon-google-plus" size="28px" color="#444444"]</a> <a href="#">[gdlr_icon type="icon-instagram" size="28px" color="#444444"]</a>

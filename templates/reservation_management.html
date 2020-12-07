@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Reservation Management Page
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="">
+            <h1>Reservation Management</h1>
+        </div>
+        <table class="table" id="table">
+            <thead>
+            <tr bgcolor="#999999">
+                <th align="center" width="120">Guest</th>
+                <th align="center" width="200">Room</th>
+                <th align="center" width="200">Transaction Date</th>
+                <th align="center" width="120">Total Price</th>
+                <th align="center" width="120">Status</th>
+                <th align="center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reservation in reservations %}
+                <tr>
+                <td>{{ reservation.guest }}</td>
+                <td>{{ reservation.room }}</td>
+                <td>{{reservation.transaction_date }}</td>
+                <td>{{ reservation.total_price}}</td>
+                <td>{{ reservation.reservation_status }}</td>
+                <td>
+                    <a href="#" class="btn btn-success btn-xs">Confirm</a>
+{#                    <a href="#" class="btn btn-primary btn-xs">View</a>#}
+                    <a href="#" class="btn btn-primary btn-xs">Cancel</a>
+{#                    <a href="#" class="btn btn-success btn-xs">Check in</a>#}
+{#                    <a href="#" class="btn btn-danger btn-xs">Check out</a>#}
+{#                    <a href="#" class="btn btn-danger btn-xs">Delete</a>#}
+{#                    <a href="#" class="btn btn-primary btn-xs">Edit</a>#}
+                </td>
+            </tr>
+            {% endfor %}
+
+
+            </tbody>
+            {#            <tfoot>#}
+            {#            <tr>#}
+            {#                <td colspan="6"><h4 align="right">Total:</h4></td>#}
+            {#                <td colspan="4"><h4><b>&euro;{{ total }}</b></h4></td>#}
+            {#            </tr>#}
+            {#            </tfoot>#}
+        </table>
+    </div>
+{% endblock %}
