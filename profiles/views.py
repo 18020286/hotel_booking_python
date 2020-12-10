@@ -8,7 +8,7 @@ from django.forms import forms, models
 from django.http import request, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, FormView, UpdateView
+from django.views.generic import TemplateView, FormView, UpdateView, CreateView
 
 from profiles.forms import RegisterForm
 from profiles.models import MyBooking

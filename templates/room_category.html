@@ -1,0 +1,56 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}
+    Room Category Page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+         <div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ message.tags }}">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <section class="">
+            <h2 class="text-center text-primary">Room Category</h2>
+             <div>
+                <a class="btn btn-primary mb-2 mt-4"  href="{% url 'add_category' %}">Add New Category</a>
+            </div>
+            <table class="table table-striped  ">
+                <thead>
+                <th>STT</th>
+                <th>Room Category</th>
+                <th>Price</th>
+                <th>Capacity</th>
+                <th width="400">Description</th>
+                <th colspan="2" width="120">Actions</th>
+                </thead>
+                {#            {% if rooms %}#}
+                {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.id }}</td>
+                        <td>{{ room.room_type }}</td>
+                        <td>&euro; {{ room.price }}</td>
+                        <td>{{ room.num_person }}</td>
+                        <td>{{ room.description }}</td>
+                        <td colspan="2">
+                            <a href="{% url 'edit_category' %}">
+                                <Button class="btn btn-primary">Edit</Button>
+                            </a>
+                            <a href="#">
+                                <Button class="btn btn-danger">Delete</Button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {#            {% endif %}#}
+
+
+            </table>
+        </section>
+    </div>
+{% endblock %}

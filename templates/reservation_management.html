@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin_base.html' %}
 
 {% block title %}
     Reservation Management Page
@@ -7,6 +7,15 @@
 {% block content %}
 
     <div class="container">
+        <div>
+            {% if messages %}
+            {% for message in messages %}
+                <div class="text-center alert alert-{{ message.tags }}">
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
         <div class="">
             <h1>Reservation Management</h1>
         </div>
@@ -14,11 +23,13 @@
             <thead>
             <tr bgcolor="#999999">
                 <th align="center" width="120">Guest</th>
-                <th align="center" width="200">Room</th>
+                <th align="center" width="220">Room</th>
+                <th align="center" width="150">Check In</th>
+                <th align="center" width="150">Check Out</th>
                 <th align="center" width="200">Transaction Date</th>
                 <th align="center" width="120">Total Price</th>
                 <th align="center" width="120">Status</th>
-                <th align="center">Action</th>
+                <th align="center" width="240">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -26,18 +37,35 @@
                 <tr>
                 <td>{{ reservation.guest }}</td>
                 <td>{{ reservation.room }}</td>
+                <td>{{reservation.check_in }}</td>
+                <td>{{reservation.check_out }}</td>
                 <td>{{reservation.transaction_date }}</td>
-                <td>{{ reservation.total_price}}</td>
+                <td>${{ reservation.total_price}}</td>
                 <td>{{ reservation.reservation_status }}</td>
+                {% if reservation.reservation_status == 'confirmed' %}
                 <td>
-                    <a href="#" class="btn btn-success btn-xs">Confirm</a>
-{#                    <a href="#" class="btn btn-primary btn-xs">View</a>#}
-                    <a href="#" class="btn btn-primary btn-xs">Cancel</a>
-{#                    <a href="#" class="btn btn-success btn-xs">Check in</a>#}
-{#                    <a href="#" class="btn btn-danger btn-xs">Check out</a>#}
-{#                    <a href="#" class="btn btn-danger btn-xs">Delete</a>#}
-{#                    <a href="#" class="btn btn-primary btn-xs">Edit</a>#}
+                    <a href="{% url 'reservation_management' %}?status=checkedIn&id={{ reservation.id }}" class="btn btn-success btn-xs">Check in</a>
+                    <a href="{% url 'reservation_management' %}?status=delete&id={{ reservation.id }}" class="btn btn-danger btn-xs">Delete</a>
                 </td>
+                {% elif reservation.reservation_status == 'checkedIn'%}
+                <td>
+                    <a href="{% url 'reservation_management' %}?status=checkedOut&id={{ reservation.id }}" class="btn btn-danger btn-xs">Check out</a>
+                    <a href="{% url 'reservation_management' %}?status=delete&id={{ reservation.id }}" class="btn btn-danger btn-xs">Delete</a>
+                </td>
+                {% elif reservation.reservation_status == 'checkedOut'%}
+                <td>
+                    <a href="{% url 'reservation_management'%}?status=delete&id={{ reservation.id }}" class="btn btn-danger btn-xs">Delete</a>
+                </td>
+                {% elif reservation.reservation_status == 'cancel'%}
+                <td>
+                    <a href="{% url 'reservation_management'%}?status=delete&id={{ reservation.id }}" class="btn btn-danger btn-xs">Delete</a>
+                </td>
+                {% else %}
+                <td>
+                    <a href="{% url 'reservation_management' %}?status=confirmed&id={{ reservation.id }}" class="btn btn-success btn-xs">Confirm</a>
+                    <a href="{% url 'reservation_management' %}?status=cancel&id={{ reservation.id }}" class="btn btn-primary btn-xs">Cancel</a>
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
 

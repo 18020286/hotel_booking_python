@@ -3,6 +3,7 @@
 <head>
     <title>{% block title %}Hotel Booking{% endblock %}</title>
     <meta charset="utf-8">
+    <meta name="generator" content="Asp.net" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="shortcut icon" type="image/x-icon" href="" />
@@ -24,10 +25,8 @@
     <link href="/static/Styles/style.css" rel="stylesheet" />
     <link href="/static/Styles/customer.css" rel="stylesheet" />
     <link href="/static/Styles/js_composer.min.css" rel="stylesheet" />
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/ion.sound.min.js"></script>
-    <script src="/static/js/jquery.doubletap.js"></script>
-    <meta name="generator" content="Asp.net" />
+    {% block css %}
+    {% endblock %}
     <style type="text/css">
         .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
             font-family: Georgia, "Times New Roman", Times, serif;;
@@ -144,6 +143,10 @@
     <script src="/static/js/map.js"></script>
     <script src="/static/js/site.js"></script>
     <script src="/static/js/wp-embed.min.js"></script>
-
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/ion.sound.min.js"></script>
+    <script src="/static/js/jquery.doubletap.js"></script>
 </body>
+{% block js %}
+{% endblock %}
 </html>

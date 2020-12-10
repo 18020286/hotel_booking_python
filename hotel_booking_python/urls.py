@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 
 from hotel import views
 from profiles import views as profiles_views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -28,6 +30,13 @@ urlpatterns = [
     path('booking', views.booking_view, name="booking"),
     path('payment', views.payment, name='payment'),
 
-    path('admin/reservation_management', views.reservation_management_view, name="reservation_management")
+    path('admin/reservation_management', views.reservation_management_view, name="reservation_management"),
+    path('admin/room_detail', views.room_detail_view, name="room_detail"),
+
+    path('admin/room_detail/add_room', views.AddRoom.as_view(), name='add_room'),
+    path('admin/room_category', views.room_category_view, name="room_category"),
+    path('admin/room_category/add_category', views.AddCategory.as_view(), name="add_category"),
+    path('admin/room_category/edit_category', views.EditCategory.as_view(), name="edit_category"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
