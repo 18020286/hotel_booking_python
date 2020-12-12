@@ -8,13 +8,14 @@ from django.utils.dateparse import parse_date
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, UpdateView
 
 from hotel.models import Room, Blog, Reservation, RoomDetail
 from profiles.models import User, MyBooking
 
 from .filters import RoomFilter
+from .forms import CategoryForm
 
 
 def home_view(request):
@@ -210,6 +211,14 @@ class AddRoom(SuccessMessageMixin, CreateView):
 
 
 def room_category_view(request):
+    if request.method == "GET":
+        try:
+            cid = request.GET.get('cid')
+            category = Room.objects.get(id=cid)
+            category.delete()
+            messages.success(request, "Delete category successfully!")
+        except:
+            pass
     rooms = Room.objects.all().order_by('id')
     data = {'rooms': rooms}
     return render(request, 'room_category.html', data)
@@ -233,7 +242,27 @@ class EditCategory(SuccessMessageMixin, UpdateView):
     fields = '__all__'
     success_url = reverse_lazy('room_category')
     success_message = "Update category successfully!"
+    slug_field = 'url'
+    slug_url_kwarg = 'url'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=self.request.user.pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+def edit_category_view(request, pk):
+    room = Room.objects.get(id=pk)
+    form = CategoryForm(instance=room)
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=room)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Update category successfully!")
+            return redirect('room_category')
+
+    data = {'form': form}
+    return render(request, 'edit_category.html', data)

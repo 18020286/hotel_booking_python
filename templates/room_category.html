@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="container">
-         <div>
+        <div>
             {% if messages %}
                 {% for message in messages %}
                     <div class="text-center alert alert-{{ message.tags }}">
@@ -17,13 +17,14 @@
         </div>
         <section class="">
             <h2 class="text-center text-primary">Room Category</h2>
-             <div>
-                <a class="btn btn-primary mb-2 mt-4"  href="{% url 'add_category' %}">Add New Category</a>
+            <div>
+                <a class="btn btn-primary mb-2 mt-4" href="{% url 'add_category' %}">Add New Category</a>
             </div>
             <table class="table table-striped  ">
                 <thead>
                 <th>STT</th>
                 <th>Room Category</th>
+                <th width="100">Image</th>
                 <th>Price</th>
                 <th>Capacity</th>
                 <th width="400">Description</th>
@@ -34,21 +35,37 @@
                     <tr>
                         <td>{{ room.id }}</td>
                         <td>{{ room.room_type }}</td>
+                        <td><a href="#" data-toggle="modal" data-target="#myModal"><img src="{{ room.picture.url }}"
+                                                                                        width="60" height="40"></a></td>
+                        <div class="modal fade" id="myModal" role="img">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img src="{{ room.picture.url }}" alt="" width="500">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <td>&euro; {{ room.price }}</td>
                         <td>{{ room.num_person }}</td>
                         <td>{{ room.description }}</td>
                         <td colspan="2">
-                            <a href="{% url 'edit_category' %}">
+                            <a href="{% url 'edit_category' room.id %}">
                                 <Button class="btn btn-primary">Edit</Button>
                             </a>
-                            <a href="#">
+                            <a href="{% url 'room_category' %}?cid={{ room.id }}">
                                 <Button class="btn btn-danger">Delete</Button>
                             </a>
                         </td>
                     </tr>
                 {% endfor %}
                 {#            {% endif %}#}
-
 
             </table>
         </section>

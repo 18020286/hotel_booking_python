@@ -36,7 +36,7 @@ urlpatterns = [
     path('admin/room_detail/add_room', views.AddRoom.as_view(), name='add_room'),
     path('admin/room_category', views.room_category_view, name="room_category"),
     path('admin/room_category/add_category', views.AddCategory.as_view(), name="add_category"),
-    path('admin/room_category/edit_category', views.EditCategory.as_view(), name="edit_category"),
+    path('admin/room_category/edit_category/<str:pk>', views.edit_category_view, name="edit_category"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
