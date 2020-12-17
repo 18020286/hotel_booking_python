@@ -6,7 +6,31 @@
 
 {% block content %}
     <div class="container">
-        <h3>Welcome User: {{ user.username }}</h3>
+        <div class="row">
+            <h3>Welcome User: {{ user.username }}</h3>
+            <a href="#" class="dropdown-toggle ml-2" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">1</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">You have 1 messages</li>
+                <li>
+                    <ul class="">
+                        <li>
+                            <a class="read"
+                               href="#test"
+                               data-toggle="lightbox" data-id="">
+                                <h4>
+                                    Admin
+                                </h4>
+                                <p>Reservation is already.</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
         <section class="hoc clear mt-4">
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
@@ -21,7 +45,8 @@
                         <div class="panel-body p-2">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. <a class="btn-primary" href="{% url 'profile' %}">CLICK
+                            laboris nisi ut aliquip ex ea commodo consequat. <a class="btn-primary"
+                                                                                href="{% url 'profile' %}">CLICK
                             HERE.</a>
                         </div>
                     </div>
@@ -43,8 +68,7 @@
                     </div>
                 </div>
             </div>
-            <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+            <a class="btn btn-danger mt-2" href="{% url 'logout' %}">Logout</a>
         </section>
-
     </div>
 {% endblock %}

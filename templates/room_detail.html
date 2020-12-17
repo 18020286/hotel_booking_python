@@ -234,19 +234,23 @@
                     <td>&euro; {{ room.type.price }}</td>
                     <td>{{ room.type.num_person }}</td>
                     <td colspan="2">
-                        {% if room.status == 'unavailable' %}
+                        <a href="#">
+                            <Button class="btn btn-primary">View</Button>
+                        </a>
+                        {% if room.status == 'available' %}
+                            <a href="{% url 'room_detail' %}?room_id={{ room.id }}&status=unavailable">
+                                <Button class="btn btn-danger">Unavailable</Button>
+                            </a>
+                        {% elif room.status == 'unavailable' %}
                             <a href="{% url 'room_detail' %}?room_id={{ room.id }}&status=ready">
                                 <Button class="btn btn-success">Ready</Button>
                             </a>
                         {% endif %}
-                        <a href="#">
-                            <Button class="btn btn-primary">View</Button>
-                        </a>
+
                     </td>
                 </tr>
             {% endfor %}
             {#            {% endif %}#}
-
 
         </table>
     </div>

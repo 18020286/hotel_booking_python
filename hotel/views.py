@@ -1,6 +1,6 @@
 from datetime import datetime, date
 import django_filters
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.dateparse import parse_date
@@ -173,6 +173,7 @@ def reservation_management_view(request):
     return render(request, 'reservation_management.html', data)
 
 
+@user_passes_test(check_admin)
 def room_detail_view(request):
     r_id = request.GET.get('room_id')
     room_status = request.GET.get('status')
@@ -184,6 +185,9 @@ def room_detail_view(request):
             room = RoomDetail.objects.get(id=r_id)
             if room_status == 'ready':
                 room.status = 'available'
+                room.save()
+            elif room_status == 'unavailable':
+                room.status = 'unavailable'
                 room.save()
         except:
             pass
@@ -210,6 +214,7 @@ class AddRoom(SuccessMessageMixin, CreateView):
         return context
 
 
+@user_passes_test(check_admin)
 def room_category_view(request):
     if request.method == "GET":
         try:
@@ -224,7 +229,13 @@ def room_category_view(request):
     return render(request, 'room_category.html', data)
 
 
-class AddCategory(SuccessMessageMixin, CreateView):
+class AdminStaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
+
+
+class AddCategory(SuccessMessageMixin, CreateView, AdminStaffRequiredMixin):
     template_name = 'add_category.html'
     model = Room
     fields = '__all__'
