@@ -54,6 +54,9 @@
             <li class="nav-item {% if nav == 'blog'%}active{% endif %}">
                 <a class="nav-link" href="{% url 'blog_management' %}">Blog</a>
             </li>
+            <li class="nav-item {% if nav == 'user'%}active{% endif %}">
+                <a class="nav-link" href="{% url 'user_management' %}">User</a>
+            </li>
         </ul>
     </div>
 </nav>

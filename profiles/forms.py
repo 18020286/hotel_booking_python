@@ -21,3 +21,12 @@ class ProfileEditForm(forms.BaseForm):
         model = User
         fields = ('first_name', 'last_name', 'address', 'year_birth', 'phone_no', 'bank_no')
 
+
+class AddUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')
+        field_classes = {'username': UsernameField}
+        # widgets = {
+        #
+        # }

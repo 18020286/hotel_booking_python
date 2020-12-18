@@ -42,5 +42,8 @@ urlpatterns = [
     path('admin/blog/add_blog', views.AddBlog.as_view(), name="add_blog"),
     path('admin/blog/edit_blog/<str:pk>', views.edit_blog_view, name="edit_blog"),
 
+    path('admin/user', profiles_views.user_management_view, name="user_management"),
+    path('admin/user/add', profiles_views.AddUser.as_view(), name="add_user"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

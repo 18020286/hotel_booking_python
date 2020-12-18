@@ -1,0 +1,58 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}
+    User Management Page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ message.tags }}">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <section class="">
+            <h2 class="text-center text-primary">User Management</h2>
+            <div>
+                <a class="btn btn-primary mb-2 mt-4" href="{% url 'add_user' %}">Add New User</a>
+            </div>
+            <table class="table table-striped  ">
+                <thead>
+{#                <th>STT</th>#}
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email address</th>
+                <th>Status</th>
+                <th colspan="2" width="120">Actions</th>
+                </thead>
+                {#            {% if rooms %}#}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{% if user.is_staff == 1 %}Staff{% else%}User{% endif %}</td>
+                        <td colspan="2">
+                            <a href="{% url 'user_management' %}?cid={{ user.id }}&action=delete">
+                                <Button class="btn btn-danger">Delete</Button>
+                            </a>
+                            {% if user.is_staff != 1%}
+                            <a href="{% url 'user_management'%}?cid={{ user.id }}&action=activate">
+                                <Button class="btn btn-primary">Activate Staff</Button>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {#            {% endif %}#}
+
+            </table>
+        </section>
+    </div>
+{% endblock %}
