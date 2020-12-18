@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'admin_base.html' %}
 
-</body>
-</html>
+{% block title %}
+    Blog Management Page
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ message.tags }}">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <section class="">
+            <h2 class="text-center text-primary">Blog Management</h2>
+            <div>
+                <a class="btn btn-primary mb-2 mt-4" href="{% url 'add_blog' %}">Add New Blog</a>
+            </div>
+            <table class="table table-striped  ">
+                <thead>
+                <th>STT</th>
+                <th>Blog Name</th>
+                <th>Type</th>
+                <th>Author</th>
+                <th>Posted Date</th>
+                <th colspan="2" width="120">Actions</th>
+                </thead>
+                {#            {% if rooms %}#}
+                {% for blog in blogs %}
+                    <tr>
+                        <td>{{ blog.id }}</td>
+                        <td>{{ blog.blog_name }}</td>
+                        <td>{{ blog.type }}</td>
+                        <td>{{ blog.author }}</td>
+                        <td>{{ blog.post_date }}</td>
+                        <td colspan="2">
+                            <a href="{% url 'edit_blog' blog.id %}">
+                                <Button class="btn btn-primary">Edit</Button>
+                            </a>
+                            <a href="{% url 'blog_management' %}?cid={{ blog.id }}">
+                                <Button class="btn btn-danger">Delete</Button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {#            {% endif %}#}
+
+            </table>
+        </section>
+    </div>
+{% endblock %}

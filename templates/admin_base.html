@@ -42,14 +42,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item {% if nav == 'room detail'%}active{% endif %}">
                 <a class="nav-link" href="{% url 'room_detail' %}">Room Detail</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if nav == 'room category'%}active{% endif %}">
                 <a class="nav-link" href="{% url 'room_category' %}">Room Category</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if nav == 'reservation'%}active{% endif %}">
                 <a class="nav-link" href="{% url 'reservation_management' %}">Reservation</a>
+            </li>
+            <li class="nav-item {% if nav == 'blog'%}active{% endif %}">
+                <a class="nav-link" href="{% url 'blog_management' %}">Blog</a>
             </li>
         </ul>
     </div>

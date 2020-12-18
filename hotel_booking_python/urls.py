@@ -38,5 +38,9 @@ urlpatterns = [
     path('admin/room_category/add_category', views.AddCategory.as_view(), name="add_category"),
     path('admin/room_category/edit_category/<str:pk>', views.edit_category_view, name="edit_category"),
 
+    path('admin/blog', views.blog_management_view, name="blog_management"),
+    path('admin/blog/add_blog', views.AddBlog.as_view(), name="add_blog"),
+    path('admin/blog/edit_blog/<str:pk>', views.edit_blog_view, name="edit_blog"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

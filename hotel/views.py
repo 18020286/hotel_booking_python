@@ -15,7 +15,7 @@ from hotel.models import Room, Blog, Reservation, RoomDetail
 from profiles.models import User, MyBooking
 
 from .filters import RoomFilter
-from .forms import CategoryForm
+from .forms import CategoryForm, BlogForm
 
 
 def home_view(request):
@@ -169,7 +169,7 @@ def reservation_management_view(request):
         except:
             pass
     reservations = Reservation.objects.all()
-    data = {'reservations': reservations}
+    data = {'reservations': reservations, 'nav': 'reservation'}
     return render(request, 'reservation_management.html', data)
 
 
@@ -198,7 +198,7 @@ def room_detail_view(request):
     rooms_checked_in = len(RoomDetail.objects.filter(status='checkedIn'))
 
     data = {'checkedIn': rooms_checked_in, 'total_rooms': total_rooms, 'unavailable': rooms_unavailable,
-            'available': rooms_available, 'rooms': rooms, 'myFilter': myFilter}
+            'available': rooms_available, 'rooms': rooms, 'myFilter': myFilter, 'nav': 'room detail'}
     return render(request, 'room_detail.html', data)
 
 
@@ -225,7 +225,7 @@ def room_category_view(request):
         except:
             pass
     rooms = Room.objects.all().order_by('id')
-    data = {'rooms': rooms}
+    data = {'rooms': rooms, 'nav': 'room category'}
     return render(request, 'room_category.html', data)
 
 
@@ -247,21 +247,21 @@ class AddCategory(SuccessMessageMixin, CreateView, AdminStaffRequiredMixin):
         return context
 
 
-class EditCategory(SuccessMessageMixin, UpdateView):
-    template_name = 'edit_category.html'
-    model = Room
-    fields = '__all__'
-    success_url = reverse_lazy('room_category')
-    success_message = "Update category successfully!"
-    slug_field = 'url'
-    slug_url_kwarg = 'url'
-
-    def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=self.request.user.pk)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+# class EditCategory(SuccessMessageMixin, UpdateView):
+#     template_name = 'edit_category.html'
+#     model = Room
+#     fields = '__all__'
+#     success_url = reverse_lazy('room_category')
+#     success_message = "Update category successfully!"
+#     slug_field = 'url'
+#     slug_url_kwarg = 'url'
+#
+#     def get_object(self, queryset=None):
+#         return get_object_or_404(self.model, pk=self.request.user.pk)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         return context
 
 
 def edit_category_view(request, pk):
@@ -277,3 +277,45 @@ def edit_category_view(request, pk):
 
     data = {'form': form}
     return render(request, 'edit_category.html', data)
+
+
+@user_passes_test(check_admin)
+def blog_management_view(request):
+    if request.method == "GET":
+        try:
+            cid = request.GET.get('cid')
+            blog = Blog.objects.get(id=cid)
+            blog.delete()
+            messages.success(request, "Delete blog successfully!")
+        except:
+            pass
+    blogs = Blog.objects.all().order_by('id')
+    data = {'blogs': blogs, 'nav': 'blog'}
+    return render(request, 'blog_management.html', data)
+
+
+def edit_blog_view(request, pk):
+    blog = Blog.objects.get(id=pk)
+    form = BlogForm(instance=blog)
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST, instance=blog)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Update blog successfully!")
+            return redirect('blog_management')
+
+    data = {'form': form}
+    return render(request, 'edit_blog.html', data)
+
+
+class AddBlog(SuccessMessageMixin, CreateView, AdminStaffRequiredMixin):
+    template_name = 'add_blog.html'
+    model = Blog
+    fields = '__all__'
+    success_url = reverse_lazy('blog_management')
+    success_message = "Create new blog successfully!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
