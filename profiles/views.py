@@ -140,20 +140,27 @@ class AdminStaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
 #         return context
-class AddUser(FormView, SuccessMessageMixin):
+class AddUser(CreateView, SuccessMessageMixin):
     template_name = 'add_user.html'
-    form_class = AddUserForm
+    # form_class = AddUserForm
+    model = User
+    # fields = '__all__'
+    fields = ['username', 'password', 'email', 'first_name', 'last_name']
     success_url = reverse_lazy('user_management')
     success_message = "Create new user successfully!"
 
-    def form_valid(self, form):
-        data = form.cleaned_data
-        new_user = User.objects.create_user(
-            username=data['username'],
-            password=data['password1'],
-            email=data['email'],
-            first_name=data['first_name'],
-            last_name=data['last_name']
-        )
-        return redirect('user_management')
-
+    # def form_valid(self, form):
+    #     data = form.cleaned_data
+    #     new_user = User.objects.create_user(
+    #         username=data['username'],
+    #         password=data['password1'],
+    #         email=data['email'],
+    #         first_name=data['first_name'],
+    #         last_name=data['last_name']
+    #     )
+    #     return redirect('user_management')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    # def get_queryset(self):
+    #     pass

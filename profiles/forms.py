@@ -11,9 +11,6 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ('username', 'email',)
         field_classes = {'username': UsernameField}
-        # widgets = {
-        #
-        # }
 
 
 class ProfileEditForm(forms.BaseForm):

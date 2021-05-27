@@ -1,7 +1,9 @@
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import django_filters
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.utils.dateparse import parse_date
 
@@ -57,37 +59,60 @@ class SiteBlogView(TemplateView):
 def booking_view(request):
     if request.method == "POST":
         room_reserved = []
-        for each_reservation in Reservation.objects.all():
-            if str(each_reservation.check_in) > str(request.POST['cout']):
-                pass
-            elif str(each_reservation.check_out) < str(request.POST['cin']):
-                pass
-            else:
-                room_reserved.append(each_reservation.room.id)
+        print(room_reserved)
 
-        check_in = request.POST.get('cin')
-        check_out = request.POST.get('cout')
+        dates = request.POST.get('dates')
+        if dates is not None:
+            check_in = datetime.strptime(dates[0:10], '%m/%d/%Y').date()
+            check_out = datetime.strptime(dates[13:], '%m/%d/%Y').date()
+            room_reserved = Reservation.objects.exclude(Q(check_in__gt=check_out) |
+                                                        Q(check_out__lt=check_in)).values_list('room_id', flat=True)
+            # room_reserved = Reservation.objects.filter(~Q(check_in__gt=check_out),
+            #                                            ~Q(check_out__lt=check_in)).values_list('room_id', flat=True)
+            # for each_reservation in Reservation.objects.all():
+            #     if each_reservation.check_in > check_out:
+            #         pass
+            #     elif each_reservation.check_out < check_in:
+            #         pass
+            #     else:
+            #         room_reserved.append(each_reservation.room.id)
+            print(room_reserved)
+        else:
+            check_in = datetime.today()
+            check_out = datetime.today() + timedelta(days=1)
 
         room_available = RoomDetail.objects.all().exclude(id__in=room_reserved).filter(
             type__num_person=str(request.POST['capacity']), status='available')
         room_list = Room.objects.all().filter(id__in=room_available.values('type_id'))
         print(room_available)
         data = {'room_list': room_list, 'rr_list': room_reserved, 'room_available': room_available,
-                'check_in': check_in,
-                'check_out': check_out, 'check': 'already'}
+                # 'check_in': check_in, 'cin': request.POST.get('cin'),
+                # 'check_out': check_out, 'cout': request.POST.get('cout'),
+                'dates': dates, 'check': 'already', 'capacity': request.POST['capacity'],
+                }
 
         ra_id = [item.id for item in room_available]
         request.session['room_show'] = ra_id
-        request.session['check_in'] = check_in
-        request.session['check_out'] = check_out
+        request.session['check_in'] = str(check_in)
+        request.session['check_out'] = str(check_out)
         if len(room_available) == 0:
             messages.warning(request, "Sorry No Rooms Are Available on this time period")
         response = render(request, 'booking.html', data)
     else:
         rooms = Room.objects.all()
+        paginator = Paginator(rooms, 5)
+        pageNumber = request.GET.get('page')
+        try:
+            rooms = paginator.page(pageNumber)
+        except PageNotAnInteger:
+            rooms = paginator.page(1)
+        except EmptyPage:
+            rooms = paginator.page(paginator.num_pages)
+
         data = {'room_list': rooms, }
         response = render(request, 'booking.html', data)
-    return HttpResponse(response)
+    # return HttpResponse(response)
+    return response
 
 
 def check_guest(user):
@@ -119,7 +144,7 @@ def payment(request):
         reservation.check_out = request.session['check_out']
         reservation.total_price = total
         reservation.save()
-        messages.success(request, "Congratulations! Booking Successfull")
+        messages.success(request, "Congratulations! Booking Successfully")
         return redirect('booking')
 
     return render(request, 'payment.html', data)

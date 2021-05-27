@@ -1,118 +1,240 @@
 {% extends 'base.html' %}
 
 {% block title %}booking{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .form-control {
+            height: 50px;
+        }
+
+        .card-header img {
+            height: 200px;
+            width: 300px
+        }
+
+        div.row article a img {
+            height: 200px;
+            width: 300px
+        }
+
+
+    </style>
+{% endblock %}
 
 {% block content %}
-    <section>
-        <div class="container-fluid px-5 ">
-            <form action="" method="POST">
+    {#    <section>#}
+    {#        <div class="container-fluid px-5 ">#}
+    {#            <div id="error-txt" class=""></div>#}
+    {#            <form action="" method="POST" id="checkAvailability">#}
+    {#                {% csrf_token %}#}
+    {#                <div class="row justify-content-center py-5 bg-light">#}
+    {#                    <div class="col-lg-2">#}
+    {#                        <label for="">Check in</label>#}
+    {#                        <input class="form-control mr-sm-2" type="date" placeholder="Check in" id="cin" name="cin"#}
+    {#                               aria-label="Search" required="True" value={{ cin }}>#}
+    {#                    </div>#}
+    {#                    <div class="col-lg-2">#}
+    {#                        <label for="">Check Out</label>#}
+    {#                        <input class="form-control mr-sm-2" type="date" placeholder="Check out" id="cout" name="cout"#}
+    {#                               aria-label="Search" required="True" value={{ cout }}>#}
+    {#                    </div>#}
+    {#                    <div class="col-lg-2">#}
+    {#                        <label for="">Person</label>#}
+    {#                    <input class="form-control mr-sm-2" type="" placeholder="Person" name="capacity" aria-label="Search" required="True">#}
+    {#                        <select class="form-control mr-sm-2" name="capacity" required="True">#}
+    {#                            <option value="single" {% if capacity == 'single' %}selected{% endif %}>Single</option>#}
+    {#                            <option value="double" {% if capacity == 'double' %}selected{% endif %}>Double</option>#}
+    {#                            <option value="family" {% if capacity == 'family' %}selected{% endif %}>Family</option>#}
+    {#                        </select>#}
+    {#                    </div>#}
+    {#                    <div class="col-lg-2">#}
+    {#                        <input type="submit" value="Check Availabilty" class="form-control mr-sm-2 btn btn-primary my-4"#}
+    {#                               style="position: relative;top: 7px;">#}
+    {#                    </div>#}
+    {#                    {% if rooms %}#}
+    {#                        <p class="text-center text-success">Rooms Available</p>#}
+    {#                    {% endif %}#}
+    {##}
+    {#                </div>#}
+    {#            </form>#}
+    {#        </div>#}
+    {##}
+    {#        <div>#}
+    {#            {% if messages %}#}
+    {#                {% for message in messages %}#}
+    {#                    <div class="text-center alert alert-{{ message.tags }}">#}
+    {#                        {{ message|safe }}#}
+    {#                    </div>#}
+    {#                {% endfor %}#}
+    {#            {% endif %}#}
+    {#        </div>#}
+    {#    </section>#}
+
+    <section class='px-5 py-2'>
+        <h2 class='text-darkgold'>Search</h2>
+        <form action="" method="POST" id="checkAvailability" class="row justify-content-center align-items-center">
             {% csrf_token %}
-            <div class="row justify-content-center py-5 bg-light">
-
-                <div class="col-lg-2">
-                    <label for="">Check in</label>
-                    <input class="form-control mr-sm-2" type="date" placeholder="Check in" name="cin"  aria-label="Search" required="True">
-                </div>
-                <div class="col-lg-2">
-                    <label for="">Check Out</label>
-                    <input class="form-control mr-sm-2" type="date" placeholder="Check out" name="cout"  aria-label="Search" required="True">
-                </div>
-                <div class="col-lg-2">
-                    <label for="">Person</label>
-{#                    <input class="form-control mr-sm-2" type="" placeholder="Person" name="capacity" aria-label="Search" required="True">#}
-                    <select class="form-control mr-sm-2" name="capacity" required="True">
-                        <option value="single">Single</option>
-                        <option value="double">Double</option>
-                        <option value="family">Family</option>
-                    </select>
-                </div>
-                <div class="col-lg-2">
-
-                    <input type="submit" value="Check Availabilty" class="form-control mr-sm-2 btn btn-primary my-4" style="position: relative;top: 7px;">
-                </div>
-                {% if rooms %}
-                <p class="text-center text-success">Rooms Available</p>
-                {% endif %}
-
+            <div class="form-group col-lg-5">
+                <label for="">Check in - Check out</label><br>
+                <i class="far fa-calendar-alt position-absolute my-3 ml-2"></i>
+                <input class="form-control mr-sm-2 pl-4" type="text" name="dates" aria-label="Search"
+                       required="True" value="{{ dates }}">
             </div>
-            </form>
-        </div>
+            <div class="form-group col-lg-2">
+                <label for="">Person</label>
+                <select class="form-control mr-sm-2" name="capacity" required="True">
+                    <option value="single" {% if capacity == 'single' %}selected{% endif %}>Single</option>
+                    <option value="double" {% if capacity == 'double' %}selected{% endif %}>Double</option>
+                    <option value="family" {% if capacity == 'family' %}selected{% endif %}>Family</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-2">
+                <label for=''></label>
+                <input type="submit" value="Check Availabilty" class="form-control mr-sm-2 btn btn-darkgold mt-2"
+                       style="position: relative">
+            </div>
+        </form>
         <div>
             {% if messages %}
-            {% for message in messages %}
-                <div class="text-center alert alert-{{ message.tags }}">
-                    {{ message|safe }}
-                </div>
-            {% endfor %}
+                {% for message in messages %}
+                    <div class="text-center alert alert-{{ message.tags }}">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
             {% endif %}
         </div>
     </section>
+
+
     <section>
         <div class="home container">
-        {% for item in room_list %}
-        <div class='row mx-0 location-means'>
-            <div class='col-12 col-md-6 order-md-1 px-0 image'><a class='video-image' style="background-image:url('{{ item.picture.url }}');"></a><span class='single-room-price'>Price from US ${{ item.price }}++</span></div>
-            <div class='col-12 col-md-6 order-md-1 px-0'>
-                <div class='pl-4 pt-4 pr-2'>
-                    <dl>
-                        <dt>
-                            Type of room:</dt>
-                        <dd>
-                            {{ item.room_type }}</dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            Price:</dt>
-                        <dd>
-                            {{ item.price }}$</dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            Description:</dt>
-                        <dd>
-                            {{ item.description }}</dd>
-                    </dl>
+            {% for item in room_list %}
+                <div class='row mx-0 location-means'>
+                    <div class='col-12 col-md-6 order-md-1 px-0 image'><a class='video-image'
+                                                                          style="background-image:url('{{ item.picture.url }}');"></a><span
+                            class='single-room-price'>Price from US ${{ item.price }}++</span></div>
+                    <div class='col-12 col-md-6 order-md-1 px-0'>
+                        <div class='pl-4 pt-4 pr-2'>
+                            <dl>
+                                <dt>
+                                    Type of room:
+                                </dt>
+                                <dd>
+                                    {{ item.room_type }}</dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    Price:
+                                </dt>
+                                <dd>
+                                    {{ item.price }}$
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    Description:
+                                </dt>
+                                <dd>
+                                    {{ item.description }}</dd>
+                            </dl>
 
-                    <div class="single-room-bpo clearfix pt-3">
-                        <a class="btn btn-primary single-room-book" href="{% if check == 'already' %}{% url 'payment' %}?room_id={{ item.id }}
-                    {% else %}#{% endif %}" >Book now</a>
-                        <div class='single-room-price'>Price From: US ${{ item.price }}++</div>
+                            <div class="single-room-bpo clearfix pt-3">
+                                <a class="btn btn-primary single-room-book"
+                                   href="{% if check == 'already' %}{% url 'payment' %}?room_id={{ item.id }}
+                    {% else %}#{% endif %}">Book now</a>
+                                <div class='single-room-price'>Price From: US ${{ item.price }}++</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            {% endfor %}
+            <nav class="row justify-content-center mt-4">
+                <span class="col-sm-2 text-right">
+                {% if room_list.has_previous %}
+                    <a class="switch-page" href="?page={{ room_list.previous_page_number }}"><i class="fas fa-backward"></i> Previous</a>
+                {% endif %}
+                </span>
+
+                <span class="col-sm-2 text-center">
+                    Page {{ room_list.number }} of {{ room_list.paginator.num_pages }}.
+                </span>
+                <span class='col-sm-2'>
+                    {% if room_list.has_next %}
+                        <a class="switch-page" href="?page={{ room_list.next_page_number }}">Next <i class="fas fa-forward"></i></a>
+                    {% endif %}
+                </span>
+            </nav>
+            <div>
+                {% for item in room_available %}
+                    <p>room is: {{ item.type }}</p>
+                {% endfor %}
+
+            </div>
+            <br>
+            <div class="wrapper row3">
+                <section class="hoc clear">
+                    <div class="center center mt-4 mb-4">
+                        <h3 class="nospace">AVAILABLE FEATURED SERVICES</h3>
+                        <p class="nospace">Erat volutpat integer vestibulum purus et sagittis rhoncus.</p>
+                    </div>
+                    <div class="group">
+                        <div class="one_third first">
+                            <h6 class="nospace font-x1">Elit vel porttitor</h6>
+                            <p>Ex suspendisse vestibulum turpis luctus pretium posuere vestibulum feugiat non metus quis
+                                vitae&hellip;</p>
+                            <footer><a class="btn" href="#">Read More</a></footer>
+                        </div>
+                        <article class="one_third"><a href="#"><img class="" src="/static/images/car_parking.jpg"
+                                                                    alt=""></a>
+                            <h6 class="font-x1 mt-2">HOTEL ROOM SERVICE BREAKFAST</h6>
+                            <p>Dignissim praesent consectetur nec tellus ut rutrum nam laoreet finibus mattis integer
+                                ullamcorper arcu&hellip;</p>
+                        </article>
+                        <article class="one_third"><a href="#"><img class="" src='/static/images/breakfast.jpg' alt=""></a>
+                            <h6 class="font-x1 mt-2">FREE PARKING</h6>
+                            <p>Pellentesque vehicula dictum ligula tellus convallis nisl vel scelerisque quam ligula a
+                                mauris quisque&hellip;</p>
+                        </article>
+                    </div>
+                </section>
             </div>
         </div>
-        {% endfor %}
-
-        <div>
-            {% for item in room_available %}
-                <p>room is: {{ item.type }}</p>
-            {% endfor %}
-
-        </div>
-        <br>
-        <div class="wrapper row3">
-            <section class="hoc clear">
-                <div class="center center mt-4 mb-4">
-                    <h3 class="nospace">AVAILABLE FEATURED SERVICES</h3>
-                    <p class="nospace">Erat volutpat integer vestibulum purus et sagittis rhoncus.</p>
-                </div>
-                <div class="group">
-                    <div class="one_third first">
-                        <h6 class="nospace font-x1">Elit vel porttitor</h6>
-                        <p>Ex suspendisse vestibulum turpis luctus pretium posuere vestibulum feugiat non metus quis vitae&hellip;</p>
-                        <footer><a class="btn" href="#">Read More</a></footer>
-                    </div>
-                    <article class="one_third"><a href="#"><img class="" src="/static/images/car_parking.jpg" alt=""></a>
-                        <h6 class="font-x1 mt-2">HOTEL ROOM SERVICE BREAKFAST</h6>
-                        <p>Dignissim praesent consectetur nec tellus ut rutrum nam laoreet finibus mattis integer ullamcorper arcu&hellip;</p>
-                    </article>
-                    <article class="one_third"><a href="#"><img class="" src='/static/images/breakfast.jpg' alt=""></a>
-                        <h6 class="font-x1 mt-2">FREE PARKING</h6>
-                        <p>Pellentesque vehicula dictum ligula tellus convallis nisl vel scelerisque quam ligula a mauris quisque&hellip;</p>
-                    </article>
-                </div>
-            </section>
-        </div>
-    </div>
     </section>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script>
+        $('input[name="dates"]').daterangepicker({"minDate": new Date()});
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#error-txt').bind('DOMSubtreeModified', function () {
+                console.log('changed');
+                $("#error-txt").addClass("text-center alert alert-danger mt-4");
+            });
+            $.validator.addMethod('greaterThan', function (value, element, param) {
+                return this.optional(element) || new Date(value) >= new Date($(param).val());
+            }, 'Invalid value');
+            $("#checkAvailability").validate({
+                rules: {
+                    cout: {
+                        greaterThan: '#cin'
+                    }
+                },
+                messages: {
+                    cout: {
+                        greaterThan: 'Check Out must be greater then or equal to Check In.'
+                    }
+                },
+                errorElement: "div",
+                errorLabelContainer: "#error-txt",
+            });
+        });
+    </script>
 {% endblock %}

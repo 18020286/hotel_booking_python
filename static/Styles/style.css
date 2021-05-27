@@ -228,10 +228,10 @@ button {
 .form-control,
 .custom-select,
 .input-group-addon,
-select.form-control:not([size]):not([multiple]) {
-	height: 1.875rem;
-	line-height: 1.875rem;
-}
+/*select.form-control:not([size]):not([multiple]) {*/
+/*	height: 1.875rem;*/
+/*	line-height: 1.875rem;*/
+/*}*/
 .form-control-circle {
 	border-radius: 0.25rem;
 }

@@ -107,3 +107,93 @@ body .tooltip .arrow:before {
     color: #fff;
     padding: 5px 10px;
 }
+
+
+
+
+
+
+
+
+
+
+/* body {
+    background-color: whitesmoke;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+/* <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Playfair+Display:400|Lato:300,400,700|Cormorant+SC:400,500,600,700" rel="stylesheet"> */
+
+body {
+    font-family: 'Open Sans';
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a.non-decoration:hover,
+#mainav ul li a {
+
+    text-decoration: none;
+}
+
+a:hover {
+    color: darkgoldenrod;
+}
+.navbar-brand, .nav-link{
+    color: white;
+    /* font-size: 22px; */
+}
+
+.navbar-brand {
+    font-size: x-large;
+    font-family: Georgia, Arial, Helvetica, sans-serif;
+
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+}
+
+.text-darkgold{
+    color: darkgoldenrod;
+}
+
+.btn-darkgold {
+    color: #fff;
+    background-color: darkgoldenrod;
+    border-color: darkgoldenrod;
+}
+form input, form select {
+    cursor: pointer;
+}
+
+
+html, body{
+    min-height: 100vh;
+}
+
+.bg-white {
+    min-height: 100%;
+}
+.main-content {
+    min-height: 80vh;
+}
+
+.table tr th {
+    color: white;
+    background-color: darkgoldenrod;
+    text-align: center;
+    border: 2px solid ghostwhite;
+}
+.table td {
+    border: 1px solid #dee2e6;
+    border-collapse: collapse;
+    vertical-align: top;
+}
+
+.list-room

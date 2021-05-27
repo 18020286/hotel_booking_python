@@ -27,7 +27,7 @@ urlpatterns = [
     path('register/', profiles_views.SiteRegisterView.as_view(), name='register'),
     path('register/ok/', profiles_views.SiteRegisterOkView.as_view(), name='register_ok'),
 
-    path('booking', views.booking_view, name="booking"),
+    path('booking/', views.booking_view, name="booking"),
     path('payment', views.payment, name='payment'),
 
     path('admin/reservation_management', views.reservation_management_view, name="reservation_management"),
